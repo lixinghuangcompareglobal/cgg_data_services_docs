@@ -27,13 +27,83 @@ Currently, we have documented two API groups:
 
 The Events API requires no authentication. It provides a single entry point that captures events from various stages of the user journey. Here is a summary of the functionality that it currently provides:
 
-* Salesforce email generation
+* email generation
 * Dialer lead generation
 * Storage of leads, application journeys in Suite CRM
 * Some custom functions for specific countries/verticals
 
 
 ## Salesforce Marketing Cloud (Email)
+
+### Top 3 result email that includes the top three results that customer sees on the result page can be sent after customers fill out the email and reach the result page
+
+### Required Query Parameters for Initial Event
+
+Parameter | Description
+--------- | -----------
+email | Salesforce Marketing Cloud cannot function without an email address
+vertical | Used to identify segmentation config
+locale | Used to identify segmentation config
+language | Used to identify which email language to be sent
+attributes/usercityEventName | The first event with the listed required parameters must have the usercityEventName for Salesforce Markeitng Cloud to identify which type of email to send
+source_url | Used to indicate where the user dropped off on their user journey in order for them to continue their journey
+dm_consent | has to be "true" for Salesforce Marketing Cloud to send email
+tc_consent | has to be "true" for Salesforce Marketing Cloud to send email
+attributes/top products | all product information for each of the top three product should be included (see example)
+
+
+### Abandon email can be sent after customers to resume application (step one of the application), after customer submit the first step of application form and leave the application form without finishing it.
+
+### Required Query Parameters for Initial Event
+
+Parameter | Description
+--------- | -----------
+email | Salesforce Marketing Cloud cannot function without an email address
+vertical | Used to identify segmentation config
+locale | Used to identify segmentation config
+language | Used to identify which email language to be sent
+attributes/usercityEventName | The first event with the listed required parameters must have the usercityEventName for Salesforce Markeitng Cloud to identify which type of email to send
+source_url | Used to indicate where the user dropped off on their user journey in order for them to continue their journey
+dm_consent | has to be "true" for Salesforce Marketing Cloud to send email
+tc_consent | has to be "true" for Salesforce Marketing Cloud to send email
+attributes/application_form/completed |  has to be "false" for Salesforce Marketing Cloud to send abandon email
+
+### Optional Parameters
+the payload should include all variables for the email template.
+e.g. travel insurance abandon cart email, include related fields from the funnel and first step of the application
+attributes/application form/provider | variable to display in email template
+attributes/application form/destinations | variable to display in email template
+
+
+### Order Confirmation email can be sent after a customer completes an application form to notify them that the application is already been received.
+
+### Required Query Parameters for Initial Event
+
+Parameter | Description
+--------- | -----------
+email | Salesforce Marketing Cloud cannot function without an email address
+vertical | Used to identify segmentation config
+locale | Used to identify segmentation config
+language | Used to identify which email language to be sent
+attributes/usercityEventName | The first event with the listed required parameters must have the usercityEventName for Salesforce Markeitng Cloud to identify which type of email to send
+source_url | Used to indicate where the user dropped off on their user journey in order for them to continue their journey
+dm_consent | has to be "true" for Salesforce Marketing Cloud to send email
+tc_consent | has to be "true" for Salesforce Marketing Cloud to send email
+attributes/application_form/completed |  has to be "true" for Salesforce Marketing Cloud to send order confirmation email
+
+### Optional Parameters
+the payload should include all variables for the email template.
+e.g. travel insurance confirmation email
+Parameter | Description
+--------- | -----------
+attributes/application form/ name | variable to display in email template
+attributes/application form/policyNumber | variable to display in email template
+attributes/application form/provider | variable to display in email template
+attributes/application form/category | variable to display in email template
+attributes/application form/date/start | variable to display in email template
+attributes/application form/date/end | variable to display in email template
+attributes/application form/destinations | variable to display in email template
+attributes/application form/phone | variable to display in email template
 
 ### Send Policy Documents to Customer
 
